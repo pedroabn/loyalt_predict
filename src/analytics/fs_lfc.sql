@@ -1,29 +1,26 @@
--- Life cicle dos clientes no momento da pic
 WITH tb_life_cycle_atual AS (
 
-    SELECT
-           IdCliente,
-           qtdFreq,
-           descLifeCycle AS descLifeCycleAtual
+    SELECT 
+        IdCliente,
+        qtdFreq,
+        descLifeCycle AS descLifeCycleAtual
 
     FROM life_cycle
-    WHERE dtRef = date('{date}','-1 day')
+    WHERE dtRef = date('2026-01-01','-1 day')
 
 ),
 
--- Life cicle dos clientes nos 28 dias antes da pic
 tb_life_cycle_D28 AS (
 
     SELECT IdCliente,
         descLifeCycle AS descLifeCycleD28
 
     FROM life_cycle
-    WHERE dtRef = date('{date}','-29 day')
+    WHERE dtRef = date('2026-01-01','-28 day')
 ),
 
-
 tb_share_ciclos AS (
--- Percentual de cada usuário em cada faixa do ciclo do usuário
+
     SELECT idCliente,
             1. * SUM(CASE WHEN descLifeCycle = '01-CURIOSO' THEN 1 ELSE 0 END) / COUNT(*) AS pctCurioso,
             1. * SUM(CASE WHEN descLifeCycle = '02-FIEL' THEN 1 ELSE 0 END) / COUNT(*) AS pctFiel,
@@ -34,7 +31,7 @@ tb_share_ciclos AS (
             1. * SUM(CASE WHEN descLifeCycle = '02-REBORN' THEN 1 ELSE 0 END) / COUNT(*) AS pctReborn
 
     FROM life_cycle
-    WHERE dtRef < '{date}'
+    WHERE dtRef < '2026-01-01'
 
     GROUP BY idCliente
 
@@ -42,7 +39,7 @@ tb_share_ciclos AS (
 
 
 tb_avg_ciclo AS (
--- Life cicle médio dos usuários
+
     SELECT descLifeCycleAtual,
           AVG(qtdFreq) AS avgFreqGrupo
 
@@ -53,7 +50,7 @@ tb_avg_ciclo AS (
 ),
 
 tb_join AS (
--- União dos dados para construção de tabela sobre os usuários e suas participações
+
     SELECT t1.*,
         t2.descLifeCycleD28,
         t3.pctCurioso,
@@ -75,11 +72,9 @@ tb_join AS (
 
     LEFT JOIN tb_avg_ciclo AS t4
     ON t1.descLifeCycleAtual = t4.descLifeCycleAtual
-
 )
 
 
-SELECT date('{date}', '-1 day') AS dtRef,
-       *
-
+SELECT *
 FROM tb_join
+LIMIT 5

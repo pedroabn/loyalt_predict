@@ -42,7 +42,7 @@ tb_lifec AS (
             WHEN UltCompra > 28 THEN '05-ZUMBI'
             WHEN UltCompra <= 7 AND penultcompra - UltCompra BETWEEN 15 AND 27 THEN '07-RECONQUER'
             WHEN UltCompra <= 7 AND penultcompra - UltCompra > 27 THEN '06-REBORN'
-        END AS descLife
+        END AS descLifeCycle
 
     FROM tb_idade AS t1
     LEFT JOIN tb_penultima AS t2
