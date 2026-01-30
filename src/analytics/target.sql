@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS abt_fiel;
 CREATE TABLE IF NOT EXISTS abt_fiel AS
+DROP TABLE IF EXISTS abt_fiel;
+CREATE TABLE IF NOT EXISTS abt_fiel AS
 
 -- Descobrindo o comportamento futuro dos clientes com base no ciclo de vida atual. Sabemos que o público mais propenso a
 -- se tornar Fiel, são aqueles que estão no estágio de Desencantado. Portanto, nosso target (flDes) será 1 para clientes que
@@ -146,4 +148,5 @@ LEFT JOIN fs_educational AS t4
 ON t1.IdCliente = t4.IdCliente
 AND t1.dtRef = t4.dtRef
 
-WHERE t3.dtRef IS NOT NULL;
+WHERE t3.dtRef IS NOT NULL
+ORDER BY t1.dtRef;
