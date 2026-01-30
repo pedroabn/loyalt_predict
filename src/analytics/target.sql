@@ -1,8 +1,10 @@
---DROP TABLE IF EXISTS abt_fiel;
---CREATE TABLE IF NOT EXISTS abt_fiel AS
+DROP TABLE IF EXISTS abt_fiel;
+CREATE TABLE IF NOT EXISTS abt_fiel AS
 
--- Tabela para construção de modelo preditivo de Fiel vs Não Fiel. É com esses dados que conseguimos
--- construir a variável target (flRecon) para o modelo de ML. "Saber de futuro pelo passado".
+-- Descobrindo o comportamento futuro dos clientes com base no ciclo de vida atual. Sabemos que o público mais propenso a
+-- se tornar Fiel, são aqueles que estão no estágio de Desencantado. Portanto, nosso target (flDes) será 1 para clientes que
+-- estão no estágio de Desencantado 28 dias após a data de referência. É com esses dados que conseguimos
+-- construir a variável target (flDes) para o modelo de ML. "Saber de futuro pelo passado".
 WITH tb_join AS (
 
     SELECT t1.dtRef,
@@ -10,8 +12,8 @@ WITH tb_join AS (
            t1.descLife,
            t2.descLife,
            ROW_NUMBER() OVER (PARTITION BY t1.IdCliente ORDER BY random()) as RandomCol, -- Randomização para amostragem
-           -- Variável resposta: 1 se for Fiel no futuro (28 dias depois), 0 caso contrário
-           CASE WHEN t2.descLife = '07-RECONQUER' THEN 1 ELSE 0 END AS flRecon
+           -- Variável resposta: 1 se for Desencantado no futuro (28 dias depois), 0 caso contrário
+           CASE WHEN t2.descLife = '04-DESENCANTADO' THEN 1 ELSE 0 END AS flDes
            
     FROM life_cycle AS t1
 
@@ -19,8 +21,8 @@ WITH tb_join AS (
     ON t1.IdCliente = t2.IdCliente
     AND date(t1.dtRef, '+28 day') = date(t2.dtRef)
 
-    WHERE ((t1.dtRef >= '2024-03-01' AND t1.dtRef <= '2025-08-01')
-            OR t1.dtRef='2025-09-01')
+    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-12-31')
+            OR t1.dtRef = '2025-01-01')
     AND t1.descLife <> '05-ZUMBI'
 ),
 
@@ -28,7 +30,7 @@ tb_cohort AS (
 
     SELECT t1.dtRef,
         t1.IdCliente,
-        t1.flRecon
+        t1.flDes
 
     FROM tb_join AS t1
     WHERE RandomCol <= 2
