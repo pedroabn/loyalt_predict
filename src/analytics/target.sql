@@ -11,7 +11,7 @@ WITH tb_join AS (
            t2.descLife,
            ROW_NUMBER() OVER (PARTITION BY t1.IdCliente ORDER BY random()) as RandomCol, -- Randomização para amostragem
            -- Variável resposta: 1 se for Reconquistado no futuro (28 dias depois), 0 caso contrário
-           CASE WHEN t2.descLife = '07-RECONQUER' THEN 1 ELSE 0 END AS flRecon
+           CASE WHEN t2.descLife = '02-FIEL' THEN 1 ELSE 0 END AS flFiel
            
     FROM life_cycle AS t1
 
@@ -19,16 +19,16 @@ WITH tb_join AS (
     ON t1.IdCliente = t2.IdCliente
     AND date(t1.dtRef, '+28 day') = date(t2.dtRef)
 
-    WHERE ((t1.dtRef >= '2025-06-01' AND t1.dtRef <= '2025-11-31')
-            OR t1.dtRef='2026-01-01')
-    AND t1.descLife <> '05-ZUMBI'
+    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-11-31')
+            OR t1.dtRef > '2026-01-01')
+    AND t1.descLife = '03-TURISTA'
 ),
 
 tb_cohort AS (
 
     SELECT t1.dtRef,
         t1.IdCliente,
-        t1.flRecon
+        t1.flFiel
 
     FROM tb_join AS t1
     WHERE RandomCol <= 2
