@@ -105,4 +105,4 @@ LEFT JOIN fs_education AS t3
 ON t1.IdCliente = t3.IdCliente
 AND t1.dtRef = t3.dtRef
 
-WHERE t1.dtRef = (SELECT MAX(dtRef) FROM fs_transacional)
+WHERE t1.dtRef = (SELECT MAX(dtRef) FROM fs_transacional);
