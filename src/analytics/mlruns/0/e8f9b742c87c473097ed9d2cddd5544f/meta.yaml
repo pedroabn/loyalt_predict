@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/pedro.bastos/Documents/vscode/loyalt_predict/src/analytics/mlruns/0/e8f9b742c87c473097ed9d2cddd5544f/artifacts
+end_time: 1770139604665
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e8f9b742c87c473097ed9d2cddd5544f
+run_name: sassy-toad-955
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770139586469
+status: 4
+tags: []
+user_id: pedro.bastos

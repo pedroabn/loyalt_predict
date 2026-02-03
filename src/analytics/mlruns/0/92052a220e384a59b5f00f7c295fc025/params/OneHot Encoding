@@ -1,0 +1,1 @@
+OneHotEncoder(variables=['descLifeCycleAtual', 'descLifeCycleD28'])

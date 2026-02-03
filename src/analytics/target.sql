@@ -19,8 +19,7 @@ WITH tb_join AS (
     ON t1.IdCliente = t2.IdCliente
     AND date(t1.dtRef, '+28 day') = date(t2.dtRef)
 
-    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-11-31')
-            OR t1.dtRef > '2026-01-01')
+    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-11-31') OR t1.dtRef > '2025-12-31') 
     AND t1.descLife = '03-TURISTA'
 ),
 

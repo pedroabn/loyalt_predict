@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/pedro.bastos/Documents/vscode/loyalt_predict/src/analytics/mlruns/0/92052a220e384a59b5f00f7c295fc025/artifacts
+end_time: 1770141262704
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 92052a220e384a59b5f00f7c295fc025
+run_name: sedate-pug-342
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770141246044
+status: 4
+tags: []
+user_id: pedro.bastos

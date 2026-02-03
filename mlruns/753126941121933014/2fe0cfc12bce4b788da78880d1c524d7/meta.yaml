@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/2fe0cfc12bce4b788da78880d1c524d7/artifacts
+end_time: 1770142846732
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: 2fe0cfc12bce4b788da78880d1c524d7
+run_name: clumsy-slug-273
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770142728767
+status: 3
+tags: []
+user_id: pedro.bastos

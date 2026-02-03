@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/753126941121933014
+creation_time: 1770142644236
+experiment_id: '753126941121933014'
+last_update_time: 1770142644236
+lifecycle_stage: active
+name: exp_predict_fiel
