@@ -10,7 +10,7 @@ versions = mlflow.search_model_versions(filter_string="name='model_fiel'")
 last_version = max((int(i.version) for i in versions))
 
 model = mlflow.sklearn.load_model(f"models:///model_fiel/{last_version}")
-data = pd.read_sql("SELECT * FROM fs_all", con)
+data = pd.read_sql("SELECT * FROM fs_all WHERE descLifeFoto = "07-Turista", con)
 print(f"Dados carregados: {data.shape}")
 
 # Tudo em 3 linhas:
