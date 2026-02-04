@@ -1,16 +1,12 @@
-# Databases
+# env
+.env
+.venv
+
+# data
+*.csv
 *.db
 
-# Data folders
-data/analytics/
-data/education_platform/
-data/loyalty_system/
-
-# CSVs gerados
-*.csv
-
-# Python
-__pycache__/
-*.pyc
-.env
-.venv/
+# cache e artefatos
+mlartifacts
+mlruns
+__pycache__

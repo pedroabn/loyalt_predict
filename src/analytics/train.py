@@ -36,7 +36,7 @@ df.head()
 
 # SAMPLE - OOT
 
-df_oot = df[df['dtRef'] >= "2025-12-01"].reset_index(drop=True)
+df_oot = df[df['dtRef'] >= "2026-01-01"].reset_index(drop=True)  # ✅ FUTURO
 df_oot
 
 # %%
@@ -46,10 +46,10 @@ df_oot
 target = 'flFiel'
 features = df.columns.tolist()[3:]
 
-df_train_test = df[df['dtRef'] < "2025-12-01"].reset_index(drop=True)
+df_train_test = df[df['dtRef'] <= "2025-12-31" ].reset_index(drop=True)
 
 y = df_train_test[target]   # Isso é um pd.Series (vetor)
-X = df_train_test[features] # Isso é um pd.DataFrame (matriz) por isso maiúsculo
+X = df_train_test[features] # Isso é um pd.DataFrame (matriz)
 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(
     X, y,
@@ -90,9 +90,11 @@ bivariada
 # %%
 df_train.groupby('descLifeCycleFoto')[target].mean()
 
+# %%
 df_train.groupby('descLifeCycleD28')[target].mean()
 
 # %%
+
 
 # CRIANDO PIPELINE
 
@@ -106,7 +108,7 @@ drop_features = selection.DropFeatures(to_remove)
 
 # MODIFY - MISSING
 
-fill_0 = ['github2025', 'python2025',]
+fill_0 = ['github2025', 'python2025']
 imput_0 = imputation.ArbitraryNumberImputer(arbitrary_number=0,
                                             variables=fill_0)
 
@@ -128,8 +130,7 @@ onehot = encoding.OneHotEncoder(variables=cat_features)
 # MODEL - ALGORITMO
 
 model = ensemble.AdaBoostClassifier(
-    random_state=42,
-    
+    random_state=42
 )
 
 params = {
@@ -227,4 +228,3 @@ with mlflow.start_run() as r:
     plt.savefig("curva_roc.png")
     
     mlflow.log_artifact('curva_roc.png')
-    mlflow.sklearn.log_model(model_pipeline, "model_pipeline")
