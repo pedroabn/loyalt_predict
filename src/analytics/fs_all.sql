@@ -1,7 +1,8 @@
 SELECT 
        t1.dtRef, 
        t1.idCliente,
-       t1.idadeDias, 
+       t1.idadeDias,
+       t4.flEmail, 
        t1.qtdeAtivacaoVida,
        t1.qtdeAtivacaoD7,
        t1.qtdeAtivacaoD14,
@@ -56,8 +57,8 @@ SELECT
        t1.qteReembolsoStreamElements,
        t1.qtdeRPG,
        t1.qtdeChurnModel,
-       t2.qtdeFrequencia,
-       t2.descLifeCycleAtual,
+       t2.qtdFreq,
+       t2.descLifeCycleFoto,
        t2.descLifeCycleD28,
        t2.pctCurioso,
        t2.pctFiel,
@@ -101,8 +102,11 @@ LEFT JOIN fs_life_cycle AS t2
 ON t1.IdCliente = t2.IdCliente
 AND t1.dtRef = t2.dtRef
 
-LEFT JOIN fs_education AS t3
+LEFT JOIN fs_educational AS t3
 ON t1.IdCliente = t3.IdCliente
 AND t1.dtRef = t3.dtRef
+
+LEFT JOIN clients AS t4
+ON t1.IdCliente = t4.IdCliente
 
 WHERE t1.dtRef = (SELECT MAX(dtRef) FROM fs_transacional);

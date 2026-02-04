@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/ec5644350b5d45cdbb64a5800d723841/artifacts
+end_time: 1770215482130
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: ec5644350b5d45cdbb64a5800d723841
+run_name: puzzled-ram-302
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770215479387
+status: 4
+tags: []
+user_id: pedro.bastos

@@ -1,0 +1,1 @@
+CategoricalImputer(fill_value='Nao-Usuario', variables=['descLifeCycleD28'])

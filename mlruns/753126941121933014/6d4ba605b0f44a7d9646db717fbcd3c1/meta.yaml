@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/6d4ba605b0f44a7d9646db717fbcd3c1/artifacts
+end_time: 1770225651183
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: 6d4ba605b0f44a7d9646db717fbcd3c1
+run_name: agreeable-stag-51
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770225647673
+status: 4
+tags: []
+user_id: pedro.bastos

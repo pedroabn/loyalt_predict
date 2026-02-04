@@ -1,0 +1,12 @@
+ArbitraryNumberImputer(arbitrary_number=0,
+                       variables=['ml2024', 'tramparLakehouse2024',
+                                  'qtdeCursosCompletos', 'pandas2025',
+                                  'python2024', 'estatistica2025',
+                                  'coletaDados2024', 'lagoMago2024', 'carreira',
+                                  'matchmakingTramparDeCasa2024', 'github2025',
+                                  'iaCanal2025', 'github2024', 'pandas2024',
+                                  'dsPontos2024', 'tseAnalytics2024',
+                                  'qtdeCursosIncompletos', 'dsDatabricks2024',
+                                  'estatistica2024', 'python2025',
+                                  'streamlit2025', 'sql2020', 'mlflow2025',
+                                  'sql2025', 'machineLearning2025'])

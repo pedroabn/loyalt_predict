@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/96d2938e81234bcca3bf98bb208f1220/artifacts
+end_time: 1770226610820
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: 96d2938e81234bcca3bf98bb208f1220
+run_name: adorable-bass-63
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770226447450
+status: 3
+tags: []
+user_id: pedro.bastos

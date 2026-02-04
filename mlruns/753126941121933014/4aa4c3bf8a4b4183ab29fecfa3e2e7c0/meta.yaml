@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/4aa4c3bf8a4b4183ab29fecfa3e2e7c0/artifacts
+end_time: 1770215930415
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: 4aa4c3bf8a4b4183ab29fecfa3e2e7c0
+run_name: serious-bee-848
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770215815928
+status: 3
+tags: []
+user_id: pedro.bastos

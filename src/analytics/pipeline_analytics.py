@@ -26,6 +26,15 @@ steps = [
         "mode":"append",
     },
     {
+        "table":"clients",
+        "db_origin":"loyalty-system",
+        "db_target":"analytics",
+        "dt_start":now,
+        "dt_stop":now,
+        "monthly":False,
+        "mode":"append",
+    },
+    {
         "table":"fs_education",
         "db_origin":"education-platform",
         "db_target":"analytics",

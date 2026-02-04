@@ -2,7 +2,7 @@ WITH tb_life_cycle_atual AS (
 
     SELECT IdCliente,
            qtdFreq,
-           descLife AS descLifeCycleAtual
+           descLife AS descLifeCycleFoto
 
     FROM life_cycle
     WHERE dtRef = date('{date}','-1 day')
@@ -39,12 +39,12 @@ tb_share_ciclos AS (
 
 tb_avg_ciclo AS (
 
-    SELECT descLifeCycleAtual,
+    SELECT descLifeCycleFoto,
           AVG(qtdFreq) AS avgFreqGrupo
 
     FROM tb_life_cycle_atual
 
-    GROUP BY descLifeCycleAtual
+    GROUP BY descLifeCycleFoto
 
 ),
 
@@ -70,7 +70,7 @@ tb_join AS (
     ON t1.idCliente = t3.idCliente
 
     LEFT JOIN tb_avg_ciclo AS t4
-    ON t1.descLifeCycleAtual = t4.descLifeCycleAtual
+    ON t1.descLifeCycleFoto = t4.descLifeCycleFoto
 
 )
 

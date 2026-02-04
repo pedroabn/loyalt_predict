@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/753126941121933014/873f04085eb7421a9577836f24360e89/artifacts
+end_time: 1770226053881
+entry_point_name: ''
+experiment_id: '753126941121933014'
+lifecycle_stage: active
+run_id: 873f04085eb7421a9577836f24360e89
+run_name: orderly-stork-416
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1770225900075
+status: 3
+tags: []
+user_id: pedro.bastos

@@ -36,7 +36,7 @@ df.head()
 
 # SAMPLE - OOT
 
-df_oot = df[df['dtRef']==df['dtRef'].max()].reset_index(drop=True)
+df_oot = df[df['dtRef'] >= "2025-12-01"].reset_index(drop=True)
 df_oot
 
 # %%
@@ -46,10 +46,10 @@ df_oot
 target = 'flFiel'
 features = df.columns.tolist()[3:]
 
-df_train_test = df[df['dtRef']<df['dtRef'].max()].reset_index(drop=True)
+df_train_test = df[df['dtRef'] < "2025-12-01"].reset_index(drop=True)
 
 y = df_train_test[target]   # Isso é um pd.Series (vetor)
-X = df_train_test[features] # Isso é um pd.DataFrame (matriz)
+X = df_train_test[features] # Isso é um pd.DataFrame (matriz) por isso maiúsculo
 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(
     X, y,
@@ -74,7 +74,7 @@ s_nas
 
 ## EXPLORE BIVARIADA
 
-cat_features = ['descLifeCycleAtual', 'descLifeCycleD28']
+cat_features = ['descLifeCycleFoto', 'descLifeCycleD28']
 num_features = list(set(features) - set(cat_features))
 
 df_train = X_train.copy()
@@ -88,13 +88,11 @@ bivariada = bivariada.sort_values(by='ratio', ascending=False)
 bivariada
 
 # %%
-df_train.groupby('descLifeCycleAtual')[target].mean()
+df_train.groupby('descLifeCycleFoto')[target].mean()
 
-# %%
 df_train.groupby('descLifeCycleD28')[target].mean()
 
 # %%
-
 
 # CRIANDO PIPELINE
 
@@ -108,7 +106,7 @@ drop_features = selection.DropFeatures(to_remove)
 
 # MODIFY - MISSING
 
-fill_0 = ['github2025', 'python2025']
+fill_0 = ['github2025', 'python2025',]
 imput_0 = imputation.ArbitraryNumberImputer(arbitrary_number=0,
                                             variables=fill_0)
 
@@ -229,14 +227,4 @@ with mlflow.start_run() as r:
     plt.savefig("curva_roc.png")
     
     mlflow.log_artifact('curva_roc.png')
-
-# %%
-
-features_names = (model_pipeline[:-1].transform(X_train.head(1))
-                                     .columns
-                                     .tolist())
-
-feature_importance = pd.Series(model_pipeline[-1].feature_importances_,
-                               index=features_names)
-
-feature_importance.sort_values(ascending=False)
+    mlflow.sklearn.log_model(model_pipeline, "model_pipeline")

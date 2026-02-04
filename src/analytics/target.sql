@@ -19,7 +19,7 @@ WITH tb_join AS (
     ON t1.IdCliente = t2.IdCliente
     AND date(t1.dtRef, '+28 day') = date(t2.dtRef)
 
-    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-11-31') OR t1.dtRef > '2025-12-31') 
+    WHERE ((t1.dtRef >= '2025-01-01' AND t1.dtRef <= '2025-11-31') OR t1.dtRef > '2025-12-01') 
     AND t1.descLife = '03-TURISTA'
 ),
 
@@ -30,12 +30,13 @@ tb_cohort AS (
         t1.flFiel
 
     FROM tb_join AS t1
-    WHERE RandomCol <= 2
+    WHERE RandomCol <= 3
     ORDER BY IdCliente, dtRef
 )
 
 SELECT t1.*,
-       t2.idadeDias, 
+       t2.idadeDias,
+       t5.flEmail, 
        t2.qtdeAtivacaoVida,
        t2.qtdeAtivacaoD7,
        t2.qtdeAtivacaoD14,
@@ -91,7 +92,7 @@ SELECT t1.*,
        t2.qtdeRPG,
        t2.qtdeChurnModel,
        t3.qtdFreq,
-       t3.descLifeCycleAtual,
+       t3.descLifeCycleFoto,
        t3.descLifeCycleD28,
        t3.pctCurioso,
        t3.pctFiel,
@@ -142,6 +143,9 @@ AND t1.dtRef = t3.dtRef
 LEFT JOIN fs_educational AS t4
 ON t1.IdCliente = t4.IdCliente
 AND t1.dtRef = t4.dtRef
+
+LEFT JOIN clients AS t5
+ON t1.IdCliente = t5.IdCliente
 
 WHERE t3.dtRef IS NOT NULL
 ORDER BY t1.dtRef;
