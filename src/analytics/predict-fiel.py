@@ -14,7 +14,7 @@ data = pd.read_sql("SELECT * FROM fs_all", con)
 print(f"Dados carregados: {data.shape}")
 
 # Tudo em 3 linhas:
-data['predictFiel'] = model.predict_proba(data[model.feature_names_in_])[:, 1]
+data['predictFiel'] = model.predict_proba(data[model.feature_names_in_])[:, 3]
 data_output = data[['dtRef', 'IdCliente', 'predictFiel']]
     
 #%%

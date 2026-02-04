@@ -44,7 +44,8 @@ df_oot
 # SAMPLE - Teste e Treino
 
 target = 'flFiel'
-features = df.columns.tolist()[3:]
+f = ['dtRef', 'IdCliente', 'flFiel']
+features = [c for c in df.columns if c not in f]
 
 df_train_test = df[df['dtRef'] <= "2025-12-31" ].reset_index(drop=True)
 
