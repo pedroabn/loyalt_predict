@@ -36,7 +36,7 @@ df.head()
 
 # SAMPLE - OOT
 
-df_oot = df[df['dtRef'] >= "2026-01-01"].reset_index(drop=True)  # ✅ FUTURO
+df_oot = df[df['dtRef'] >= "2026-01-01"].reset_index(drop=True)
 df_oot
 
 # %%
@@ -130,8 +130,9 @@ onehot = encoding.OneHotEncoder(variables=cat_features)
 
 # MODEL - ALGORITMO
 
-model = ensemble.AdaBoostClassifier(
-    random_state=42
+model = ensemble.RandomForestClassifier(
+    random_state=42,
+    min_samples_leaf=10,
 )
 
 params = {

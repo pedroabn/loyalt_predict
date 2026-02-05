@@ -1,50 +1,50 @@
 # Define o diretório do ambiente virtual
 VENV_DIR=.venv
 
+# Define o interpretador Python do venv
+PYTHON=$(VENV_DIR)/Scripts/python
+
 # Define os diretórios
 ENGINEERING_DIR=src/eng
 ANALYTICS_DIR=src/analytics
 
 # Configura o ambiente virtual
-.PHONY: setup
 $(VENV_DIR):
 	python -m venv $(VENV_DIR)
-	$(VENV_DIR)/Scripts/pip install --upgrade pip
+	$(PYTHON) -m pip install --upgrade pip
 
-# Instala dependências apenas se requirements.txt mudar ou venv não existir
+# Instala dependências
+.PHONY: setup
 setup: $(VENV_DIR)
 	@echo "Verificando dependências..."
-	pip install -r requirements.txt
+	$(PYTHON) -m pip install -r requirements.txt
 
-
-# Executa os scripts
+# Executa os scripts de ingestão
 .PHONY: collect
-collect:
-	@echo "Ativando ambiente virtual..."
-	. $(VENV_DIR)/Scripts/activate
+collect: setup
 	@echo "Executando scripts de engenharia..."
-	cd src/eng && \
-	python ingestion.py
+	cd $(ENGINEERING_DIR) && $(CURDIR)/$(PYTHON) ingestion.py
 
-
-# etl das features
+# ETL das features
 .PHONY: etl
-etl:
-	@echo "Ativando ambiente virtual..."
-	. $(VENV_DIR)/Scripts/activate
+etl: setup
 	@echo "Executando scripts de feature store..."
-	cd src/analytics && \
-	python pipeline_analytics.py
+	cd $(ANALYTICS_DIR) && $(CURDIR)/$(PYTHON) pipeline_analytics.py
 
-# predicao
+# Predição
 .PHONY: predict
-predict:
-	@echo "Ativando ambiente virtual..."
-	. $(VENV_DIR)/Scripts/activate
+predict: setup
 	@echo "Executando script de predição..."
-	cd src/analytics && \
-	python predict-fiel.py
+	cd $(ANALYTICS_DIR) && $(CURDIR)/$(PYTHON) predict-fiel.py
 
+# Limpar ambiente
+.PHONY: clean
+clean:
+	@echo "Removendo ambiente virtual..."
+	rm -rf $(VENV_DIR)
+	@echo "Removendo arquivos Python cache..."
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
 
 # Alvo padrão
 .PHONY: all
