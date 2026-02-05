@@ -2,6 +2,7 @@
 import pandas as pd
 import sqlalchemy
 import mlflow
+import streamlit as st
 #%%
 def DBPredict():
     con = sqlalchemy.create_engine('sqlite:///../../data/analytics/database.db')
@@ -17,6 +18,16 @@ def DBPredict():
     # Tudo em 3 linhas:
     data['predictFiel'] = model.predict_proba(data[model.feature_names_in_])[:, 1]
     data_output = data[['dtRef', 'IdCliente', 'predictFiel']]
+    data_output['predictFiel'] = round(data_output['predictFiel']*100)
     return data_output
-#%%
-data = DBPredict()
+def follow():
+    con = sqlalchemy.create_engine('sqlite:///../../data/analytics/database.db')
+    data = pd.read_sql("SELECT * FROM clients", con)
+    return data
+
+@st.cache_data
+def info_flw():
+    d = DBPredict()
+    f = follow()
+    df = d.merge(f, on='IdCliente', how= "left")
+    return df
