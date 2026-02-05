@@ -10,3 +10,4 @@
 mlartifacts
 mlruns
 __pycache__
+src/analytics/mlruns

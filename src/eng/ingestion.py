@@ -7,10 +7,10 @@ datasets = [
 ]
 
 for d in datasets:
-    dataset_name = d.split("teomewhy-")[-1]
+    dataset_name = d.split("teomewhy-")[-1].replace("-", "_")
     print(f"Baixando {dataset_name}")
 
-    path = f'../../data/{dataset_name}/database.db'
+    path = f'data/{dataset_name}/database.db'
 
     # Baixa apenas o arquivo database.db
     api.dataset_download_file(d, 'database.db')
