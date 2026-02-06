@@ -1,6 +1,8 @@
 import streamlit as st
-from src.analytics.PredictFiel import info_flw
+import pandas as pd
 import altair as alt
+from st.plot import line_con, bar_con1, bar_con2
+
 
 # =========================
 # CONFIG
@@ -44,7 +46,13 @@ st.markdown(
             margin-top: 6px;
             margin-bottom: 25px;
         }
-
+        .plot-center {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 6px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
         /* Ajuste fino no espaçamento dos gráficos */
         .block-container {
             padding-top: 35px;
@@ -55,9 +63,9 @@ st.markdown(
 )
 
 # =========================
-# DADOS FAKE (EXEMPLO)
+# DADOS 
 # =========================
-df = info_flw()
+df = pd.read_parquet("data/processed/top10_fieis.parquet")
 
 # df_line = df.groupby("Data", as_index=False)["Vendas"].sum()
 
@@ -95,7 +103,7 @@ st.markdown('<div class="thin-divider"></div>', unsafe_allow_html=True)
 # CONTAINER 2 (TABELA)
 # =========================
 with st.container():
-    st.markdown("### 📄 Previsão de churn dos TURISTAS da semana.")
+    st.markdown("### 📄 Previsão de churn dos TURISTAS do dia.")
     st.dataframe(
         df,
         use_container_width=True,
@@ -105,39 +113,25 @@ with st.container():
 # # =========================
 # # CONTAINER 3 (4 BOXS COM GRÁFICOS)
 # # =========================
-# with st.container():
-#     st.markdown("### 📈 Visão em gráficos")
+with st.container(gap="large"):
+    st.markdown("""<div class= "title-center"> 📈 Visão em gráficos </div>""", unsafe_allow_html=True)
 
-#     c1, c2 = st.columns(2, gap="large")
+    c1, c2 = st.columns(2, gap="large")
 
-#     # --- BARPLOT 1
-#     with c1:
-#         st.markdown("#### Vendas por categoria")
-#         chart_bar_1 = (
-#             alt.Chart(df_bar_1)
-#             .mark_bar()
-#             .encode(
-#                 x=alt.X("Categoria:N", title=""),
-#                 y=alt.Y("Vendas:Q", title=""),
-#                 tooltip=["Categoria", "Vendas"]
-#             )
-#             .properties(height=240)
-#         )
-#         st.altair_chart(chart_bar_1, use_container_width=True)
+    # --- BARPLOT 1
+    with c1:
+        st.markdown(""" 
+                    <div class="plot-center"> SAU X Clientes Turistas</div>'
+                    """, unsafe_allow_html=True)
+        g1 = line_con()
+        st.plotly_chart(g1, use_container_width=True)
 
 #     # --- BARPLOT 2
-#     with c2:
-#         st.markdown("#### Lucro por categoria")
-#         chart_bar_2 = (
-#             alt.Chart(df_bar_2)
-#             .mark_bar()
-#             .encode(
-#                 x=alt.X("Categoria:N", title=""),
-#                 y=alt.Y("Lucro:Q", title=""),
-#                 tooltip=["Categoria", "Lucro"]
-#             )
-#             .properties(height=240)
-#         )
+    with c2:
+        st.markdown(""" 
+                    <div class="plot-center">  Lucro por categoria</div>'
+                    """, unsafe_allow_html=True)
+        g2 =   
 #         st.altair_chart(chart_bar_2, use_container_width=True)
 
 # with st.container():
