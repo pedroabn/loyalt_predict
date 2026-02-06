@@ -1,1 +1,1 @@
-drop table fs_all;
+drop table sau;

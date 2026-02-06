@@ -1,25 +1,30 @@
--- Quantidade de usuários ativos por mês, e clientes ativos por dia. A diferença de dias representa
--- o período de inatividade de lives. Quanto mais longe de 7, mais dias ficaram sem clientes ativos. 
-with tb_daily AS (
+WITH tb_daily AS (
     SELECT DISTINCT 
-        date(SUBSTR(DtCriacao, 0, 11)) AS Dtdia,
+        date(substr(DtCriacao, 1, 10)) AS Dtdia,
         IdCliente
     FROM transacoes
 ),
 
-tb_distinct AS (
-    SELECT DISTINCT Dtdia as dtRef
+tb_week AS (
+    SELECT DISTINCT 
+        date(Dtdia, 'weekday 1', '-7 days') AS dtRef_week
     FROM tb_daily
+),
+
+tb_base AS (
+    SELECT 
+        w.dtRef_week,
+        d.Dtdia,
+        d.IdCliente
+    FROM tb_week w
+    LEFT JOIN tb_daily d
+      ON d.Dtdia <= w.dtRef_week
+     AND julianday(w.dtRef_week) - julianday(d.Dtdia) < 7
 )
 
-SELECT t1.dtRef,
-        count (DISTINCT IdCliente) as SAU,
-        count (DISTINCT t2.Dtdia) as qtdeDias
-
-FROM tb_distinct as t1
-LEFT JOIN tb_daily as t2
-ON t2.Dtdia <= t1.dtRef
-AND julianday(t1.dtRef) - julianday(t2.Dtdia) < 7
-
-GROUP BY t1.dtRef
-ORDER BY t1.dtRef DESC
+SELECT 
+    dtRef_week,
+    COUNT(DISTINCT IdCliente) AS SAU,
+    COUNT(DISTINCT Dtdia) AS dias_ativos
+FROM tb_base
+GROUP BY dtRef_week

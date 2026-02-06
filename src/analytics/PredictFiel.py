@@ -4,7 +4,7 @@ import sqlalchemy
 import mlflow
 from pathlib import Path
 
-
+# paths
 ROOT_DIR = Path(__file__).resolve().parents[2]  # src/analytics -> src -> raiz
 DB_PATH = ROOT_DIR / "data" / "analytics" / "database.db"
 OUT_PATH = ROOT_DIR / "data" / "processed" / "top10_fieis.parquet"
@@ -19,15 +19,14 @@ def DBPredict():
 
     model = mlflow.sklearn.load_model(f"models:///model_fiel/{last_version}")
 
-    data = pd.read_sql(
-        "SELECT * FROM fs_all WHERE descLifeCycleFoto = '03-TURISTA'",
-        con
-    )
+    data = pd.read_sql("SELECT * FROM fs_all WHERE descLifeCycleFoto = '03-TURISTA'", con)
 
-    data["predictFiel"] = model.predict_proba(data[model.feature_names_in_])[:, 1]
+    data['predictFiel'] = model.predict_proba(data[model.feature_names_in_])[:, 1]
 
     data_output = data[["dtRef", "IdCliente", "predictFiel"]].copy()
-    data_output["predictFiel"] = (f'{round((data_output["predictFiel"] * 100),2)}%')
+    data_output['predictFiel'] = (data_output['predictFiel']*100).map('{:.3f}%'.format)
+    
+    data_output = data_output.rename(columns={"dtRef":"Data da foto", "predictFiel":"Churn"})
 
     return data_output
 
