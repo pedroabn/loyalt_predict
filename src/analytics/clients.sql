@@ -1,5 +1,5 @@
 SELECT 
-    IdCliente as IdCliente,
+    idCliente as IdCliente,
     flEmail,
     flTwitch,
     flYouTube,

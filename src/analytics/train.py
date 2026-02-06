@@ -94,6 +94,20 @@ df_train.groupby('descLifeCycleFoto')[target].mean()
 # %%
 df_train.groupby('descLifeCycleD28')[target].mean()
 
+# cols_com_na = X_train.columns[X_train.isna().any()].tolist()
+# na_que_estao_em_to_remove = sorted(set(cols_com_na) & set(to_remove))
+# na_que_nao_estao_em_to_remove = sorted(set(cols_com_na) - set(to_remove))
+# print("Total colunas com NA:", len(cols_com_na))
+# print("Colunas com NA que estão em to_remove:", len(na_que_estao_em_to_remove))
+# print("Colunas com NA que NÃO estão em to_remove:", len(na_que_nao_estao_em_to_remove))
+
+# print("\nNA e estão em to_remove:")
+# print(na_que_estao_em_to_remove)
+
+# print("\nNA e NÃO estão em to_remove:")
+# print(na_que_nao_estao_em_to_remove)
+
+
 # %%
 
 
@@ -109,7 +123,7 @@ drop_features = selection.DropFeatures(to_remove)
 
 # MODIFY - MISSING
 
-fill_0 = ['github2025', 'python2025']
+fill_0 = ['python2025']
 imput_0 = imputation.ArbitraryNumberImputer(arbitrary_number=0,
                                             variables=fill_0)
 
@@ -130,9 +144,10 @@ onehot = encoding.OneHotEncoder(variables=cat_features)
 
 # MODEL - ALGORITMO
 
-model = ensemble.RandomForestClassifier(
+
+model = ensemble.AdaBoostClassifier(
     random_state=42,
-    min_samples_leaf=10,
+    
 )
 
 params = {
@@ -230,3 +245,5 @@ with mlflow.start_run() as r:
     plt.savefig("curva_roc.png")
     
     mlflow.log_artifact('curva_roc.png')
+
+# %%

@@ -1,12 +1,11 @@
 # Define o diretório do ambiente virtual
 VENV_DIR=.venv
 
-# Define o interpretador Python do venv
-PYTHON=$(VENV_DIR)/Scripts/python
-
-# Define os diretórios
-ENGINEERING_DIR=src/eng
-ANALYTICS_DIR=src/analytics
+ifeq ($(OS),Windows_NT)
+    PYTHON=$(VENV_DIR)/Scripts/python.exe
+else
+    PYTHON=$(VENV_DIR)/bin/python
+endif
 
 # Configura o ambiente virtual
 $(VENV_DIR):
@@ -22,30 +21,30 @@ setup: $(VENV_DIR)
 # Executa os scripts de ingestão
 .PHONY: collect
 collect: setup
-	@echo "Executando scripts de engenharia..."
-	cd $(ENGINEERING_DIR) && $(CURDIR)/$(PYTHON) ingestion.py
+	@echo "--- [1/3] Coletando dados ---"
+	$(PYTHON) src/eng/ingestion.py
 
 # ETL das features
 .PHONY: etl
 etl: setup
-	@echo "Executando scripts de feature store..."
-	cd $(ANALYTICS_DIR) && $(CURDIR)/$(PYTHON) pipeline_analytics.py
+	@echo "--- [2/3] Executando ETL ---"
+	$(PYTHON) src/analytics/pipeline_analytics.py
 
 # Predição
 .PHONY: predict
 predict: setup
-	@echo "Executando script de predição..."
-	cd $(ANALYTICS_DIR) && $(CURDIR)/$(PYTHON) predict-fiel.py
+	@echo "--- [3/3] Executando Predição ---"
+	$(PYTHON) src/analytics/PredictFiel.py
 
-# Limpar ambiente
-.PHONY: clean
-clean:
-	@echo "Removendo ambiente virtual..."
-	rm -rf $(VENV_DIR)
-	@echo "Removendo arquivos Python cache..."
-	find . -type d -name "__pycache__" -exec rm -rf {} +
-	find . -type f -name "*.pyc" -delete
+# Build completo
+.PHONY: build
+build: setup collect etl predict
 
-# Alvo padrão
-.PHONY: all
-all: setup collect etl predict
+# Rodar streamlit
+.PHONY: app
+app: setup
+	$(PYTHON) -m streamlit run app.py
+
+# Rodar tudo (pipeline + app)
+.PHONY: run
+run: build app
