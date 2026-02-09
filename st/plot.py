@@ -12,7 +12,7 @@ def consql():
     consql = sqlalchemy.create_engine(f"sqlite:///{DB_PATH.as_posix()}")
     return consql
 
-def line_con():
+def line_con1():
     con = consql()
     df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-06-01'", con)
     df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
@@ -44,6 +44,40 @@ def line_con():
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False)
     return fig
+
+def line_con2():
+    con = consql()
+    df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-06-01'", con)
+    df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
+    df_long = df.melt(
+        id_vars="dtRef_week",
+        value_vars=["SAU", "qtd_turista"],
+        var_name="serie",
+        value_name="valor"
+    )
+
+    fig = px.line(
+        df_long,
+        x="dtRef_week",
+        y="valor",
+        color="serie",
+        markers=True,
+        color_discrete_map={ #Cores das linhas
+            "SAU": "#2090B5",       
+            "qtd_turista": "#4A12A9"   
+        }
+    )
+
+    fig.update_traces(line=dict(width=3))
+    fig.update_layout(
+        height=400,
+        margin=dict(l=10, r=10, t=10, b=10),
+        legend_title_text=""
+    )
+    fig.update_xaxes(showgrid=False)
+    fig.update_yaxes(showgrid=False)
+    return fig
+
 
 
 def bar_con1():

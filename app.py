@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
-from st.plot import line_con, bar_con1, bar_con2
+from st.plot import line_con1, bar_con1, bar_con2, line_con2
 
 # =========================
 # CONFIG
@@ -62,16 +61,6 @@ st.markdown(
 )
 
 # =========================
-# DADOS 
-# =========================
-df = pd.read_parquet("data/processed/top10_fieis.parquet")
-
-# df_line = df.groupby("Data", as_index=False)["Vendas"].sum()
-
-# df_bar_1 = df.groupby("Categoria", as_index=False)["Vendas"].sum()
-# df_bar_2 = df.groupby("Categoria", as_index=False)["Lucro"].sum()
-
-# =========================
 # HEADER
 # =========================
 st.markdown('<div class="title-center">✉️ Remarketing do TheoMeWhy</div>', unsafe_allow_html=True)
@@ -101,6 +90,8 @@ st.markdown('<div class="thin-divider"></div>', unsafe_allow_html=True)
 # =========================
 # CONTAINER 2 (TABELA)
 # =========================
+df = pd.read_parquet("data/processed/top10_fieis.parquet")
+
 with st.container():
     st.markdown("### 📄 Previsão de churn dos TURISTAS do dia.")
     st.dataframe(
@@ -122,37 +113,31 @@ with st.container(gap="large"):
         st.markdown(""" 
                     <div class="plot-center"> SAU X Clientes Turistas</div>'
                     """, unsafe_allow_html=True)
-        g1 = line_con()
+        g1 = line_con1()
         st.plotly_chart(g1, use_container_width=True)
 
 #     # --- BARPLOT 2
     with c2:
         st.markdown(""" 
-                    <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual </div>'
+                    <div class="plot-center">  Clientes ativos por dia na semana </div>'
                     """, unsafe_allow_html=True)
-        g2 =   bar_con1()
-        st.plotly_chart(g2, use_container_width=True)
-#         st.altair_chart(chart_bar_2, use_container_width=True)
+        # g2 =   line_con2()
+        # st.plotly_chart(g2, use_container_width=True)
 
 with st.container():
     c3, c4 = st.columns(2, gap="large")
     # --- SCATTERPLOT
     with c3:
-        st.markdown("#### Vendas x Lucro")
-        g3 = bar_con2()
+        st.markdown(""" 
+                    <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual </div>'
+                    """, unsafe_allow_html=True)
+        g3 = bar_con1()
         st.plotly_chart(g3, use_container_width=True)
 
     # --- LINE CHART
     with c4:
-        st.markdown("#### Evolução diária")
-#         chart_line = (
-#             alt.Chart(df_line)
-#             .mark_line(point=True)
-#             .encode(
-#                 x=alt.X("Data:T", title=""),
-#                 y=alt.Y("Vendas:Q", title=""),
-#                 tooltip=["Data", "Vendas"]
-#             )
-#             .properties(height=240)
-#         )
-#         st.altair_chart(chart_line, use_container_width=True)
+        st.markdown(""" 
+                    <div class="plot-center"> Canais com clientes integrados ao sistema de estudo </div>'
+                    """, unsafe_allow_html=True)
+        g4 = bar_con2()
+        st.plotly_chart(g4, use_container_width=True)

@@ -41,7 +41,7 @@ def info_flw():
     f = follow()
 
     df = d.merge(f, on="IdCliente", how="left")
-    df = df.sort_values("predictFiel", ascending=False).head(10)
+    df = df.sort_values("Churn", ascending=False).head(10)
 
     return df
 
