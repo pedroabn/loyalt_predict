@@ -3,7 +3,6 @@ import pandas as pd
 import altair as alt
 from st.plot import line_con, bar_con1, bar_con2
 
-
 # =========================
 # CONFIG
 # =========================
@@ -129,31 +128,23 @@ with st.container(gap="large"):
 #     # --- BARPLOT 2
     with c2:
         st.markdown(""" 
-                    <div class="plot-center">  Lucro por categoria</div>'
+                    <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual </div>'
                     """, unsafe_allow_html=True)
-        g2 =   
+        g2 =   bar_con1()
+        st.plotly_chart(g2, use_container_width=True)
 #         st.altair_chart(chart_bar_2, use_container_width=True)
 
-# with st.container():
-#     c3, c4 = st.columns(2, gap="large")
-#     # --- SCATTERPLOT
-#     with c3:
-#         st.markdown("#### Vendas x Lucro")
-#         chart_scatter = (
-#             alt.Chart(df)
-#             .mark_circle(size=85)
-#             .encode(
-#                 x=alt.X("Vendas:Q", title=""),
-#                 y=alt.Y("Lucro:Q", title=""),
-#                 tooltip=["Categoria", "Vendas", "Lucro"]
-#             )
-#             .properties(height=240)
-#         )
-#         st.altair_chart(chart_scatter, use_container_width=True)
+with st.container():
+    c3, c4 = st.columns(2, gap="large")
+    # --- SCATTERPLOT
+    with c3:
+        st.markdown("#### Vendas x Lucro")
+        g3 = bar_con2()
+        st.plotly_chart(g3, use_container_width=True)
 
-#     # --- LINE CHART
-#     with c4:
-#         st.markdown("#### Evolução diária")
+    # --- LINE CHART
+    with c4:
+        st.markdown("#### Evolução diária")
 #         chart_line = (
 #             alt.Chart(df_line)
 #             .mark_line(point=True)

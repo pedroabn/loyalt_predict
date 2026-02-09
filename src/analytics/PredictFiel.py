@@ -33,7 +33,7 @@ def DBPredict():
 
 def follow():
     con = sqlalchemy.create_engine(f"sqlite:///{DB_PATH.as_posix()}")
-    return pd.read_sql("SELECT * FROM clients", con)
+    return pd.read_sql("SELECT IdCliente, perfil_engajamento FROM clients", con)
 
 
 def info_flw():

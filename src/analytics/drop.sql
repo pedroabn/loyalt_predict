@@ -1,1 +1,1 @@
-drop table sau;
+drop table clients;

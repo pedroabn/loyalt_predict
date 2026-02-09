@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from pathlib import Path
 import sqlalchemy
+import plotly.graph_objects as go
 
 def consql():
 # paths
@@ -29,8 +30,8 @@ def line_con():
         color="serie",
         markers=True,
         color_discrete_map={ #Cores das linhas
-            "SAU": "#7C3AED",       
-            "qtd_turista": "#2090B5"   
+            "SAU": "#2090B5",       
+            "qtd_turista": "#4A12A9"   
         }
     )
 
@@ -40,22 +41,105 @@ def line_con():
         margin=dict(l=10, r=10, t=10, b=10),
         legend_title_text=""
     )
+    fig.update_xaxes(showgrid=False)
+    fig.update_yaxes(showgrid=False)
     return fig
 
 
 def bar_con1():
     con = consql()
-    df = pd.read_sql("SELECT * FROM life_cycle WHERE dtRef_week > 2026-01-10 ", con)
-    df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
-    
-    g = px.bar(
-        df.sort_values("predictFiel", ascending=False).head(10),
-        x="IdCliente",
-        y="predictFiel",
-        text="predictFiel"
+    df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
+
+    df["qtd"] = pd.to_numeric(df["qtd"], errors="coerce")
+    df["var_perc"] = pd.to_numeric(df["var_perc"], errors="coerce")
+
+    df = df.sort_values("qtd", ascending=False).reset_index(drop=True)
+
+    # label do texto
+    df["var_perc_txt"] = (df["var_perc"] / 100).map("{:.0%}".format)
+
+    # cor do texto (verde/vermelho)
+    df["txt_color"] = df["var_perc"].apply(lambda x: "#22C55E" if x > 0 else "#EF4444")
+
+    # cores das barras por tipo
+    tipo_colors = {
+        "01-CURIOSO": "#97D1E4",
+        "02-FIEL": "#97D1E4",
+        "03-TURISTA": "#4A12A9",
+        "04-DESENCANTADO": "#97D1E4",
+        "06-REBORN": "#97D1E4",
+        "07-RECONQUER": "#97D1E4",
+    }
+    df["bar_color"] = df["tipo"].map(tipo_colors).fillna("#97D1E4")
+
+    # x numérico (isso evita problema de posição)
+    df["xpos"] = df.index
+
+    fig = go.Figure()
+
+    # barras
+    fig.add_trace(
+        go.Bar(
+            x=df["xpos"],
+            y=df["qtd"],
+            marker=dict(color=df["bar_color"]),
+            hovertext=df["tipo"],
+            hovertemplate="<b>%{hovertext}</b><br>qtd=%{y}<extra></extra>",
+        )
     )
-    g.update_layout(
-        height=350,
-        margin=dict(l=10, r=10, t=10, b=10)
+
+    # annotations (texto colorido por barra)
+    for i, row in df.iterrows():
+        fig.add_annotation(
+            x=row["xpos"],
+            y=row["qtd"],
+            text=row["var_perc_txt"],
+            showarrow=False,
+            yshift=14,
+            font=dict(size=14, color=row["txt_color"]),
+        )
+
+    # eixo x com labels (tipo)
+    fig.update_layout(
+        height=400,
+        margin=dict(l=10, r=10, t=10, b=10),
+        xaxis=dict(
+            tickmode="array",
+            tickvals=df["xpos"],
+            ticktext=df["tipo"],
+            title="",
+        ),
+        yaxis=dict(title="qtd"),
     )
-    return g
+    fig.update_xaxes(showgrid=False)
+    fig.update_yaxes(showgrid=False)
+    return fig
+
+def bar_con2():
+    con = consql()
+    df = pd.read_sql("SELECT * FROM qtd_clients", con) 
+
+    fig = px.bar(
+        df,
+        x="canal",
+        y="total",
+        color= 'canal',
+        color_discrete_map={
+            "Twitch": "#4A12A9",  # roxo
+            "Email": "#97D1E4",  # cinza
+            "YouTube": "#97D1E4",  # cinza
+            "Instagram": "#97D1E4",  # cinza
+            "BlueSky": "#97D1E4",  # cinza
+        },
+    )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        height=400,
+        margin=dict(l=10, r=10, t=10, b=10),
+        xaxis_title= "Canais integrados",
+        yaxis_title="Clientes no canal",
+        legend_title_text="",
+    )
+
+    return fig
