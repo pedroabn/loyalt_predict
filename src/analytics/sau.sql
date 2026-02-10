@@ -27,4 +27,5 @@ SELECT
     COUNT(DISTINCT IdCliente) AS SAU,
     COUNT(DISTINCT Dtdia) AS dias_ativos
 FROM tb_base
+
 GROUP BY dtRef_week

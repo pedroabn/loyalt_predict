@@ -52,6 +52,10 @@ steps = [
         "monthly":False,
         "mode":"replace",
     },
+    {
+        "table":"meta_ciclo",
+        "db_origin":"analytics"
+    }
 ]
 
 for s in steps:
