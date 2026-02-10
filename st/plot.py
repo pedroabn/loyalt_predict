@@ -14,40 +14,7 @@ def consql():
 
 def line_con1():
     con = consql()
-    df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-06-01'", con)
-    df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
-    df_long = df.melt(
-        id_vars="dtRef_week",
-        value_vars=["SAU", "qtd_turista"],
-        var_name="serie",
-        value_name="valor"
-    )
-
-    fig = px.line(
-        df_long,
-        x="dtRef_week",
-        y="valor",
-        color="serie",
-        markers=True,
-        color_discrete_map={ #Cores das linhas
-            "SAU": "#2090B5",       
-            "qtd_turista": "#4A12A9"   
-        }
-    )
-
-    fig.update_traces(line=dict(width=3))
-    fig.update_layout(
-        height=400,
-        margin=dict(l=10, r=10, t=10, b=10),
-        legend_title_text=""
-    )
-    fig.update_xaxes(showgrid=False)
-    fig.update_yaxes(showgrid=False)
-    return fig
-
-def line_con2():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-06-01'", con)
+    df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-08-01'", con)
     df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
     df_long = df.melt(
         id_vars="dtRef_week",
@@ -149,31 +116,22 @@ def bar_con1():
     fig.update_yaxes(showgrid=False)
     return fig
 
-def bar_con2():
+def met1():
     con = consql()
-    df = pd.read_sql("SELECT * FROM qtd_clients", con) 
+    df = pd.read_sql("SELECT * FROM meta_ciclo", con)
+    m = df.sort_values('dtRef_week', ascending=False)
+    m = m['Meta_Percentual'].head(1).values[0]
+    return m
 
-    fig = px.bar(
-        df,
-        x="canal",
-        y="total",
-        color= 'canal',
-        color_discrete_map={
-            "Twitch": "#4A12A9",  # roxo
-            "Email": "#97D1E4",  # cinza
-            "YouTube": "#97D1E4",  # cinza
-            "Instagram": "#97D1E4",  # cinza
-            "BlueSky": "#97D1E4",  # cinza
-        },
-    )
+# def met2():
+#     con = consql()
+#     df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
+    
+#     m =
+#     return m
 
-    fig.update_traces(textposition="outside")
-    fig.update_layout(
-        height=400,
-        margin=dict(l=10, r=10, t=10, b=10),
-        xaxis_title= "Canais integrados",
-        yaxis_title="Clientes no canal",
-        legend_title_text="",
-    )
-
-    return fig
+# def met3():
+#     con = consql()
+#     df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
+#     m =
+#     return m

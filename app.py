@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st.plot import line_con1, bar_con1, bar_con2, line_con2
+from st.plot import line_con1, bar_con1, met1
 
 # =========================
 # CONFIG
@@ -80,7 +80,7 @@ with st.container():
         
         Dentro desse dashboard, identificamos alguns dados importantes:
         - Os 10 clientes TURISTAS que podem ser Fieis em um mês
-        - Gráficos sobre o WAU para análise semanal de clientes e canais de comunicação ativos
+        - Gráficos sobre o WAU para análise semanal de clientes e variação semanal
         """
     )
 
@@ -100,11 +100,23 @@ with st.container():
         hide_index=True
     )
 
+
 # # =========================
-# # CONTAINER 3 (4 BOXS COM GRÁFICOS)
+# # CONTAINER 3 (3 BOXES COM MÉTRICAS)
+# # =========================
+with st.container(gap='xsmall'):
+    c1,c2,c3 = st.columns(3, gap='small')
+    with c1:
+        m1 = met1()
+        st.metric("meta de frequencia para Turistas", m1 )
+#     with c2:
+        
+#     with c3:
+# # =========================
+# # CONTAINER 4 (2 BOXES COM GRÁFICOS)
 # # =========================
 with st.container(gap="large"):
-    st.markdown("""<div class= "title-center"> 📈 Visão em gráficos </div>""", unsafe_allow_html=True)
+    st.markdown("""<div class= "title-center"> 📈 Dados da semana </div>""", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2, gap="large")
 
@@ -119,25 +131,26 @@ with st.container(gap="large"):
 #     # --- BARPLOT 2
     with c2:
         st.markdown(""" 
-                    <div class="plot-center">  Clientes ativos por dia na semana </div>'
-                    """, unsafe_allow_html=True)
-        # g2 =   line_con2()
-        # st.plotly_chart(g2, use_container_width=True)
-
-with st.container():
-    c3, c4 = st.columns(2, gap="large")
-    # --- SCATTERPLOT
-    with c3:
-        st.markdown(""" 
-                    <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual </div>'
+                    <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual e variação semanal </div>'
                     """, unsafe_allow_html=True)
         g3 = bar_con1()
         st.plotly_chart(g3, use_container_width=True)
 
-    # --- LINE CHART
-    with c4:
-        st.markdown(""" 
-                    <div class="plot-center"> Canais com clientes integrados ao sistema de estudo </div>'
-                    """, unsafe_allow_html=True)
-        g4 = bar_con2()
-        st.plotly_chart(g4, use_container_width=True)
+# st.markdown("""<div class= "title-center"> 📈 Dados históricos </div>""", unsafe_allow_html=True)
+# with st.container():
+#     c3, c4 = st.columns(2, gap="large")
+#     # --- SCATTERPLOT
+#     with c3:
+#         st.markdown(""" 
+#                     <div class="plot-center">  Clientes ativos por dia na semana </div>'
+#                     """, unsafe_allow_html=True)
+#         # g2 =   line_con2()
+#         # st.plotly_chart(g2, use_container_width=True)
+
+#     # --- LINE CHART
+#     with c4:
+#         st.markdown(""" 
+#                     <div class="plot-center"> Canais com clientes integrados ao sistema de estudo </div>'
+#                     """, unsafe_allow_html=True)
+#         g4 = bar_con2()
+#         st.plotly_chart(g4, use_container_width=True)
