@@ -61,4 +61,4 @@ SELECT
     qtd,
     var_perc
 FROM tb_final 
-LIMIT 6;
+LIMIT 6

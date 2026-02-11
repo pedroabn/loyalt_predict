@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st.plot import line_con1, bar_con1, met1, met2
+from st.plot import line_con1, bar_con1, met1, met2, met1_2, met3
 
 # =========================
 # CONFIG
@@ -104,20 +104,40 @@ with st.container():
 # # =========================
 # # CONTAINER 3 (3 BOXES COM MÉTRICAS)
 # # =========================
+
+st.markdown("""
+<style>
+div[data-testid="stMetricValue"] {
+    font-weight: 900 !important;
+    font-size: 34px !important;
+}
+div[data-testid="stMetricLabel"] p {
+    font-weight: 700 !important;
+    font-size: 14px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 with st.container(gap='small'):
     c1,c2,c3 = st.columns(3, gap='small')
     with c1:
         m1 = met1()
-        st.metric("Meta de frequência média atingida", m1)
+        m12 = met1_2()
+        st.metric(label = "Meta de frequência média atingida", 
+                  value= m12, 
+                  delta = f"{m1}%")
     with c2:
         b = met2()
         data = pd.to_datetime(b["StarDay"]).strftime("%d/%m/%Y")
         valor = int(b["compras_no_dia"])    
         st.metric(
-            label="SAU",
-            value=f"{valor}",
-            delta=f"Data de maior venda da semana: {data}")
-#     with c3:
+            label="Data de maior venda da semana, ou anterior:",
+            value=f"{data}",
+            delta=f"{valor}")
+    with c3:
+        m3 = met3()
+        st.metric(label = 'Dias ativos durante a semana',
+                  value = m3)
 # # =========================
 # # CONTAINER 4 (2 BOXES COM GRÁFICOS)
 # # =========================
@@ -141,22 +161,3 @@ with st.container(gap="large"):
                     """, unsafe_allow_html=True)
         g3 = bar_con1()
         st.plotly_chart(g3, use_container_width=True)
-
-# st.markdown("""<div class= "title-center"> 📈 Dados históricos </div>""", unsafe_allow_html=True)
-# with st.container():
-#     c3, c4 = st.columns(2, gap="large")
-#     # --- SCATTERPLOT
-#     with c3:
-#         st.markdown(""" 
-#                     <div class="plot-center">  Clientes ativos por dia na semana </div>'
-#                     """, unsafe_allow_html=True)
-#         # g2 =   line_con2()
-#         # st.plotly_chart(g2, use_container_width=True)
-
-#     # --- LINE CHART
-#     with c4:
-#         st.markdown(""" 
-#                     <div class="plot-center"> Canais com clientes integrados ao sistema de estudo </div>'
-#                     """, unsafe_allow_html=True)
-#         g4 = bar_con2()
-#         st.plotly_chart(g4, use_container_width=True)

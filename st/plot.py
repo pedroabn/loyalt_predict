@@ -1,6 +1,7 @@
 #%%
 import pandas as pd
 import plotly.express as px
+import streamlit as st
 from pathlib import Path
 import sqlalchemy
 import plotly.graph_objects as go
@@ -54,7 +55,8 @@ def bar_con1():
     df["qtd"] = pd.to_numeric(df["qtd"], errors="coerce")
     df["var_perc"] = pd.to_numeric(df["var_perc"], errors="coerce")
 
-    df = df.sort_values("qtd", ascending=False).reset_index(drop=True)
+    df = df.sort_values("var_perc", ascending=False).reset_index(drop=True)
+    df = df.head(6)
 
     # label do texto
     df["var_perc_txt"] = (df["var_perc"] / 100).map("{:.0%}".format)
@@ -123,6 +125,13 @@ def met1():
     m = df['Meta_Percentual'].iloc[0]
     return m
 
+def met1_2():
+    con = consql()
+    df = pd.read_sql("SELECT dtRef_week, Meta_Percentual, ROUND(freq_mean, 2) as freq FROM meta_ciclo", con)
+    df = df.sort_values('dtRef_week', ascending=False)
+    m = df['freq'].iloc[0]
+    return m
+
 def met2():
     con = consql()
     df = pd.read_sql("SELECT * FROM dia_venda", con)
@@ -130,8 +139,9 @@ def met2():
     m = df.sort_values("dtRef_week", ascending=False).iloc[0]    
     return m
 
-# def met3():
-#     con = consql()
-#     df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
-#     m =
-#     return m
+def met3():
+    con = consql()
+    df = pd.read_sql("SELECT * FROM sau", con)
+    df = df.sort_values('dtRef_week', ascending=False)
+    m = df['dias_ativos'].iloc[0]
+    return m

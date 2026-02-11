@@ -35,7 +35,7 @@ tb_avg as (
 SELECT 
     dtRef_week,
     descLifeCycleFoto,
-    ROUND(((freq_mean - 3) / freq_mean) * 100, 2) as Meta_Percentual,
+    ROUND(((freq_mean - 3) / 3) * 100, 2) as Meta_Percentual,
     freq_mean
 FROM tb_avg
 WHERE descLifeCycleFoto = '03-TURISTA' AND dtRef_week >= date('{date}','-28 day')

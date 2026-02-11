@@ -8,7 +8,7 @@ steps = [
         "table":"life_cycle",
         "db_origin":"loyalty_system",
         "db_target":"analytics",
-        "dt_start":now,
+        "dt_start":'2025-01-01',
         "dt_stop":now,
         "monthly":False,
         "mode":"append"
@@ -18,7 +18,7 @@ steps = [
         "table":"fs_transacional",
         "db_origin":"loyalty_system",
         "db_target":"analytics",
-        "dt_start":now,
+        "dt_start":'2025-01-01',
         "dt_stop":now,
         "monthly":False,
         "mode":"append"
@@ -28,7 +28,7 @@ steps = [
         "table":"fs_educational",
         "db_origin":"education_platform",
         "db_target":"analytics",
-        "dt_start":now,
+        "dt_start":'2025-01-01',
         "dt_stop":now,
         "monthly":False,
         "mode":"append"
@@ -37,7 +37,7 @@ steps = [
         "table":"clients",
         "db_origin":"loyalty_system",
         "db_target":"analytics",
-        "dt_start":now,
+        "dt_start":'2025-01-01',
         "dt_stop":now,
         "monthly":False,
         "mode":"append"
@@ -93,6 +93,14 @@ steps = [
         "dt_stop":now,
         "monthly":False,
     },        
+    {
+        "table":"qtd_ciclo",
+        "db_origin":"analytics",
+        "db_target":"analytics",
+        "dt_start":now,
+        "dt_stop":now,
+        "monthly":False,
+    },  
 ]
 
 for s in steps:

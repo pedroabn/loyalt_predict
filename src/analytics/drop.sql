@@ -1,2 +1,3 @@
-drop table meta_ciclo;
+drop table qtd_ciclo;
+
 

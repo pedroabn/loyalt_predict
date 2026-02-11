@@ -18,8 +18,8 @@ tb_base AS (
         d.IdCliente
     FROM tb_week w
     LEFT JOIN tb_daily d
-      ON d.Dtdia <= w.dtRef_week
-     AND julianday(w.dtRef_week) - julianday(d.Dtdia) < 7
+      ON d.Dtdia >= w.dtRef_week
+     AND d.Dtdia < date(w.dtRef_week, '+7 days')
 )
 
 SELECT 
@@ -27,5 +27,5 @@ SELECT
     COUNT(DISTINCT IdCliente) AS SAU,
     COUNT(DISTINCT Dtdia) AS dias_ativos
 FROM tb_base
-
 GROUP BY dtRef_week
+ORDER BY dtRef_week DESC;
