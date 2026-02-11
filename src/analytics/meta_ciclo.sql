@@ -6,8 +6,6 @@ WITH tb_freq as(
         AVG(avgFreqGrupo) as avgFreqGrupo,
         descLifeCycleFoto
     FROM fs_life_cycle
-    WHERE date(dtRef) > '2025-12-31' 
-      AND descLifeCycleFoto = '03-TURISTA' 
     GROUP BY date(dtRef), descLifeCycleFoto
 ),
 tb_week AS (
@@ -40,3 +38,5 @@ SELECT
     ROUND(((freq_mean - 3) / freq_mean) * 100, 2) as Meta_Percentual,
     freq_mean
 FROM tb_avg
+WHERE descLifeCycleFoto = '03-TURISTA' AND dtRef_week >= date('{date}','-28 day')
+ORDER BY dtRef_week DESC;

@@ -1,1 +1,2 @@
-drop table clients;
+drop table meta_ciclo;
+

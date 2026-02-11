@@ -93,7 +93,7 @@ df_train.groupby('descLifeCycleFoto')[target].mean()
 
 # %%
 df_train.groupby('descLifeCycleD28')[target].mean()
-
+# to_remove = bivariada[bivariada['ratio']==1].index.tolist()
 # cols_com_na = X_train.columns[X_train.isna().any()].tolist()
 # na_que_estao_em_to_remove = sorted(set(cols_com_na) & set(to_remove))
 # na_que_nao_estao_em_to_remove = sorted(set(cols_com_na) - set(to_remove))
@@ -123,7 +123,7 @@ drop_features = selection.DropFeatures(to_remove)
 
 # MODIFY - MISSING
 
-fill_0 = ['python2025']
+fill_0 = ['python2025', 'github2025']
 imput_0 = imputation.ArbitraryNumberImputer(arbitrary_number=0,
                                             variables=fill_0)
 

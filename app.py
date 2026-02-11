@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st.plot import line_con1, bar_con1, met1
+from st.plot import line_con1, bar_con1, met1, met2
 
 # =========================
 # CONFIG
@@ -104,13 +104,19 @@ with st.container():
 # # =========================
 # # CONTAINER 3 (3 BOXES COM MÉTRICAS)
 # # =========================
-with st.container(gap='xsmall'):
+with st.container(gap='small'):
     c1,c2,c3 = st.columns(3, gap='small')
     with c1:
         m1 = met1()
-        st.metric("meta de frequencia para Turistas", m1 )
-#     with c2:
-        
+        st.metric("Meta de frequência média atingida", m1)
+    with c2:
+        b = met2()
+        data = pd.to_datetime(b["StarDay"]).strftime("%d/%m/%Y")
+        valor = int(b["compras_no_dia"])    
+        st.metric(
+            label="SAU",
+            value=f"{valor}",
+            delta=f"Data de maior venda da semana: {data}")
 #     with c3:
 # # =========================
 # # CONTAINER 4 (2 BOXES COM GRÁFICOS)

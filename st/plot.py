@@ -119,16 +119,16 @@ def bar_con1():
 def met1():
     con = consql()
     df = pd.read_sql("SELECT * FROM meta_ciclo", con)
-    m = df.sort_values('dtRef_week', ascending=False)
-    m = m['Meta_Percentual'].head(1).values[0]
+    df = df.sort_values('dtRef_week', ascending=False)
+    m = df['Meta_Percentual'].iloc[0]
     return m
 
-# def met2():
-#     con = consql()
-#     df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
+def met2():
+    con = consql()
+    df = pd.read_sql("SELECT * FROM dia_venda", con)
     
-#     m =
-#     return m
+    m = df.sort_values("dtRef_week", ascending=False).iloc[0]    
+    return m
 
 # def met3():
 #     con = consql()

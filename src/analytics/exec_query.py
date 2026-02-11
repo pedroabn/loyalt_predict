@@ -2,14 +2,22 @@
 import argparse
 import datetime
 from tqdm import tqdm
-
+from pathlib import Path
 import pandas as pd
 import sqlalchemy
 
 
-def import_query(path):
-    with open(path) as open_file:
+def import_query(tb):
+    # Busca universal de caminho
+    current_dir = Path(__file__).parent
+    sql_path = current_dir / f"{tb}"
+    
+    if not sql_path.exists():
+        raise FileNotFoundError(f"Arquivo SQL não encontrado: {sql_path}")
+    
+    with open(sql_path, 'r', encoding='utf-8') as open_file:
         query = open_file.read()
+    
     return query
 
 
@@ -28,8 +36,18 @@ def date_range(start, stop, monthly=False):
 
 def exec_query(table, db_origin, db_target, dt_start, dt_stop, monthly, mode='append'):
     
-    engine_app = sqlalchemy.create_engine(f"sqlite:///../../data/{db_origin}/database.db")
-    engine_analytical = sqlalchemy.create_engine(f"sqlite:///../../data/{db_target}/database.db")
+    current_dir = Path(__file__).parent  # src/analytics/
+    project_root = current_dir.parent.parent  # raiz do projeto
+    
+    db_origin_path = project_root / "data" / db_origin / "database.db"
+    db_target_path = project_root / "data" / db_target / "database.db"
+    
+    # Cria diretórios se não existirem
+    db_origin_path.parent.mkdir(parents=True, exist_ok=True)
+    db_target_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    engine_app = sqlalchemy.create_engine(f"sqlite:///{db_origin_path}")
+    engine_analytical = sqlalchemy.create_engine(f"sqlite:///{db_target_path}")
 
     query = import_query(f"{table}.sql")
     dates = date_range(dt_start, dt_stop, monthly)

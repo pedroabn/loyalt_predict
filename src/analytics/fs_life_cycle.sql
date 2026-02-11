@@ -15,7 +15,7 @@ tb_life_cycle_D28 AS (
         descLife AS descLifeCycleD28
 
     FROM life_cycle
-    WHERE dtRef = date('{date}','-29 day')
+    WHERE dtRef = date('{date}','-28 day')
 ),
 
 tb_share_ciclos AS (
