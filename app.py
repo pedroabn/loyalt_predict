@@ -74,14 +74,17 @@ with st.container():
     st.markdown("### 👋 Bem-vindo!")
     st.write(
         """
-        Esse é o projeto baseado no trabalho de pipeline analítico e de ML para a medição da Lealdade do público de Theo.
-        Aqui foi projetado um dashboard para o marketing. Com uma produção de ML para o entendimento de como reconquistar o público,
-        que um dia já foi atuante dentro das plataformas. Entendemos, por dia, quais usuários são mais propensos de retornar, e colocamos
-        um alvo para a equipe de marketing conseguir trazer esse cliente de volta.
-        
-        Dentro desse dashboard, identificamos alguns dados importantes:
-        - Os 10 clientes TURISTAS que podem ser Fieis em um mês
-        - Gráficos sobre o WAU para análise semanal de clientes e variação semanal
+Este projeto foi criado para ajudar a equipe de marketing do Theo a entender melhor o público e trazer de volta aquelas pessoas que antes acompanhavam as plataformas, mas acabaram se afastando.
+
+Usamos técnicas de análise de dados e inteligência artificial para identificar, todos os dias, quais usuários têm mais chances de retornar. Assim, a equipe de marketing pode focar seus esforços nessas pessoas, com ações direcionadas para reconquistá-las de forma mais eficiente.
+
+Desenvolvemos um painel de controle (dashboard) que mostra essas informações de maneira simples e visual. Nele, é possível ver, por exemplo:
+
+    Os 10 clientes que hoje são pouco ativos (chamamos de “turistas”), mas que têm potencial para se tornar fiéis dentro de um mês;
+
+    Gráficos que acompanham a quantidade de usuários ativos por semana (o chamado WAU, ou “Weekly Active Users”), ajudando a entender as variações semanais e o comportamento do público ao longo do tempo.
+
+Com essas informações, o time de marketing consegue agir com mais estratégia e foco, aumentando as chances de trazer de volta quem um dia já foi um usuário engajado.
         """
     )
 
