@@ -80,9 +80,8 @@ Usamos técnicas de análise de dados e inteligência artificial para identifica
 
 Desenvolvemos um painel de controle (dashboard) que mostra essas informações de maneira simples e visual. Nele, é possível ver, por exemplo:
 
-    Os 10 clientes que hoje são pouco ativos (chamamos de “turistas”), mas que têm potencial para se tornar fiéis dentro de um mês;
-
-    Gráficos que acompanham a quantidade de usuários ativos por semana (o chamado WAU, ou “Weekly Active Users”), ajudando a entender as variações semanais e o comportamento do público ao longo do tempo.
+Os 10 clientes que hoje são pouco ativos (chamamos de “turistas”), mas que têm potencial para se tornar fiéis dentro de um mês;
+Gráficos que acompanham a quantidade de usuários ativos por semana (o chamado WAU, ou “Weekly Active Users”), ajudando a entender as variações semanais e o comportamento do público ao longo do tempo.
 
 Com essas informações, o time de marketing consegue agir com mais estratégia e foco, aumentando as chances de trazer de volta quem um dia já foi um usuário engajado.
         """
