@@ -13,9 +13,9 @@ def consql():
     consql = sqlalchemy.create_engine(f"sqlite:///{DB_PATH.as_posix()}")
     return consql
 
-def line_con1():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-08-01'", con)
+def line_con1(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT * FROM plot_Sau WHERE dtRef_week > '2025-08-01'", con)
     df["dtRef_week"] = pd.to_datetime(df["dtRef_week"], errors="coerce")
     df_long = df.melt(
         id_vars="dtRef_week",
@@ -46,11 +46,9 @@ def line_con1():
     fig.update_yaxes(showgrid=False)
     return fig
 
-
-
-def bar_con1():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
+def bar_con1(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT * FROM qtd_ciclo", con)
 
     df["qtd"] = pd.to_numeric(df["qtd"], errors="coerce")
     df["var_perc"] = pd.to_numeric(df["var_perc"], errors="coerce")
@@ -118,30 +116,30 @@ def bar_con1():
     fig.update_yaxes(showgrid=False)
     return fig
 
-def met1():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM meta_ciclo", con)
+def met1(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT * FROM meta_ciclo", con)
     df = df.sort_values('dtRef_week', ascending=False)
     m = df['Meta_Percentual'].iloc[0]
     return m
 
-def met1_2():
-    con = consql()
-    df = pd.read_sql("SELECT dtRef_week, Meta_Percentual, ROUND(freq_mean, 2) as freq FROM meta_ciclo", con)
+def met1_2(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT dtRef_week, Meta_Percentual, ROUND(freq_mean, 2) as freq FROM meta_ciclo", con)
     df = df.sort_values('dtRef_week', ascending=False)
-    m = df['freq'].iloc[0]
+    m = round(df['freq_mean'].iloc[0], 2)
     return m
 
-def met2():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM dia_venda", con)
+def met2(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT * FROM dia_venda", con)
     
     m = df.sort_values("dtRef_week", ascending=False).iloc[0]    
     return m
 
-def met3():
-    con = consql()
-    df = pd.read_sql("SELECT * FROM sau", con)
+def met3(df):
+    # con = consql()
+    # df = pd.read_sql("SELECT * FROM sau", con)
     df = df.sort_values('dtRef_week', ascending=False)
     m = df['dias_ativos'].iloc[0]
     return m

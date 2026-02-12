@@ -1,7 +1,8 @@
+#%%
 import streamlit as st
 import pandas as pd
-from st.plot import line_con1, bar_con1, met1, met2, met1_2, met3
-
+from st.plot import line_con1, bar_con1, met2, met1, met1_2, met3
+#%%
 # =========================
 # CONFIG
 # =========================
@@ -121,13 +122,15 @@ div[data-testid="stMetricLabel"] p {
 with st.container(gap='small'):
     c1,c2,c3 = st.columns(3, gap='small')
     with c1:
-        m1 = met1()
-        m12 = met1_2()
+        dfm1 = pd.read_csv('data/processed/meta_ciclo.csv')
+        m1 = met1(dfm1)
+        m12 = met1_2(dfm1)
         st.metric(label = "Meta de frequência média atingida", 
                   value= m12, 
                   delta = f"{m1}%")
     with c2:
-        b = met2()
+        dfm2 = pd.read_csv('data/processed/dia_venda.csv')
+        b = met2(dfm2)
         data = pd.to_datetime(b["StarDay"]).strftime("%d/%m/%Y")
         valor = int(b["compras_no_dia"])    
         st.metric(
@@ -135,7 +138,8 @@ with st.container(gap='small'):
             value=f"{data}",
             delta=f"{valor}")
     with c3:
-        m3 = met3()
+        dfm3 = pd.read_csv('data/processed/plot_sau.csv')
+        m3 = met3(dfm3)
         st.metric(label = 'Dias ativos durante a semana',
                   value = m3)
 # # =========================
@@ -151,7 +155,9 @@ with st.container(gap="large"):
         st.markdown(""" 
                     <div class="plot-center"> SAU X Clientes Turistas</div>'
                     """, unsafe_allow_html=True)
-        g1 = line_con1()
+        dfg1 = pd.read_csv('data/processed/plot_sau.csv')
+        dfg1 = dfg1[dfg1['dtRef_week'] > '2025-08-01']
+        g1 = line_con1(dfg1)
         st.plotly_chart(g1, use_container_width=True)
 
 #     # --- BARPLOT 2
@@ -159,5 +165,6 @@ with st.container(gap="large"):
         st.markdown(""" 
                     <div class="plot-center">  Quantidade de alunos por ciclo de vida na semana atual e variação semanal </div>'
                     """, unsafe_allow_html=True)
-        g3 = bar_con1()
-        st.plotly_chart(g3, use_container_width=True)
+        dfg2 = pd.read_csv('data/processed/qtd_ciclo.csv')
+        g2 = bar_con1(dfg2)
+        st.plotly_chart(g2, use_container_width=True)

@@ -4,7 +4,9 @@
 .vscode
 
 # data
-*.csv
+data/analytics
+data/education_platform
+data/loyalty_system
 *.db
 
 # cache e artefatos
