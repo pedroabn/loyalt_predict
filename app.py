@@ -76,7 +76,7 @@ with st.container():
         """
 Este projeto foi criado para ajudar a equipe de marketing do Theo a entender melhor o público e trazer de volta aquelas pessoas que antes acompanhavam as plataformas, mas acabaram se afastando.
 
-Usamos técnicas de análise de dados e inteligência artificial para identificar, todos os dias, quais usuários têm mais chances de retornar. Assim, a equipe de marketing pode focar seus esforços nessas pessoas, com ações direcionadas para reconquistá-las de forma mais eficiente.
+Usamos técnicas de análise de dados e ML para identificar, todos os dias, quais usuários têm mais chances de retornar. Assim, a equipe de marketing pode focar seus esforços nessas pessoas, com ações direcionadas para reconquistá-las de forma mais eficiente.
 
 Desenvolvemos um painel de controle (dashboard) que mostra essas informações de maneira simples e visual. Nele, é possível ver, por exemplo:
 
