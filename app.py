@@ -74,16 +74,19 @@ with st.container():
     st.markdown("### 👋 Bem-vindo!")
     st.write(
         """
-Este projeto foi criado para ajudar a equipe de marketing do Theo a entender melhor o público e trazer de volta aquelas pessoas que antes acompanhavam as plataformas, mas acabaram se afastando.
+Este projeto foi desenvolvido para apoiar a equipe de marketing do Theo na compreensão do público e, principalmente, na recuperação de usuários que já foram mais engajados, mas que se afastaram das plataformas com o tempo.
 
-Usamos técnicas de análise de dados e ML para identificar, todos os dias, quais usuários têm mais chances de retornar. Assim, a equipe de marketing pode focar seus esforços nessas pessoas, com ações direcionadas para reconquistá-las de forma mais eficiente.
+A análise tem foco especial no grupo de “turistas”, que são usuários com baixa recorrência no momento. A escolha desse recorte é estratégica: já sabemos que, quando um turista é reconquistado, ele tende a retornar ao ciclo e voltar a se comportar como um usuário fiel. Ou seja, atuar sobre esse grupo é uma das formas mais diretas de aumentar retenção e recorrência.
+Para viabilizar isso, utilizamos técnicas de análise de dados e Machine Learning para identificar diariamente quais usuários apresentam maior probabilidade de voltar a interagir. Assim, o time de marketing consegue priorizar esforços em pessoas com maior chance de conversão, reduzindo desperdício de ações genéricas e aumentando a eficiência das campanhas.
+Como resultado, foi desenvolvido um painel (dashboard) que organiza essas informações de forma simples e visual. Nele, é possível acompanhar:
 
-Desenvolvemos um painel de controle (dashboard) que mostra essas informações de maneira simples e visual. Nele, é possível ver, por exemplo:
+Top 10 turistas com maior chance de se tornarem fiéis: uma lista diária com os usuários que hoje estão pouco ativos, mas apresentam alta probabilidade de retorno no curto prazo, permitindo ações de reengajamento direcionadas.
 
-Os 10 clientes que hoje são pouco ativos (chamamos de “turistas”), mas que têm potencial para se tornar fiéis dentro de um mês;
-Gráficos que acompanham a quantidade de usuários ativos por semana (o chamado WAU, ou “Weekly Active Users”), ajudando a entender as variações semanais e o comportamento do público ao longo do tempo.
+Evolução semanal de usuários ativos (WAU): gráficos que mostram a quantidade de usuários ativos por semana e as oscilações ao longo do tempo, ajudando a entender padrões de comportamento e períodos de queda ou retomada.
 
-Com essas informações, o time de marketing consegue agir com mais estratégia e foco, aumentando as chances de trazer de volta quem um dia já foi um usuário engajado.
+Variação semanal por ciclo de vida (gráfico em barras): um gráfico que mostra, para cada ciclo de vida (Curioso, Fiel, Turista, etc.), quantos clientes existem na semana atual e como esse volume mudou em relação à semana anterior. Acima de cada coluna, exibimos a variação percentual semanal, permitindo identificar rapidamente quais perfis cresceram (retenção/recuperação) e quais diminuíram (perda ou migração de ciclo). Esse indicador é importante porque evidencia não apenas o tamanho atual de cada grupo, mas também a tendência de movimentação entre os ciclos ao longo do tempo.
+
+Com essas informações, a equipe de marketing passa a atuar com mais estratégia, priorização e foco, aumentando as chances de recuperar usuários que já tiveram histórico de engajamento e transformá-los novamente em fiéis.
         """
     )
 
@@ -149,6 +152,7 @@ with st.container(gap='small'):
 # # =========================
 with st.container(gap="large"):
     st.markdown("""<div class= "title-center"> 📈 Dados da semana </div>""", unsafe_allow_html=True)
+    st.markdown("""<div class= "subtitle-center"> Recorte para analisar a presença de clientes ativos e em que período do ciclo de vida estão. </div>""", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2, gap="large")
 
