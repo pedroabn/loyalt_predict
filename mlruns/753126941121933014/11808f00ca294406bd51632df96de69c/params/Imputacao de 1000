@@ -1,3 +1,0 @@
-ArbitraryNumberImputer(arbitrary_number=1000,
-                       variables=['avgIntervaloDiasVida', 'avgIntervaloDiasD28',
-                                  'qtdDiasUltiAtividade'])
